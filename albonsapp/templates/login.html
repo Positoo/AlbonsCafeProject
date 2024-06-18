@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+{% block blockbody %}
+
+<form action="{% url 'login' %}" method="post">{% csrf_token %}
+
+    {{miFormulario.as_p}}
+
+    <button type="submit"> Iniciar Sesión </button>
+
+</form>
+
+
+<a class="nav-link text-uppercase" href="{% url 'registro' %}">Registrarse</a>
+{% endblock blockbody %}

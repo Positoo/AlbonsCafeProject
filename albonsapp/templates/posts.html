@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+
+{% block blockbody %}
+
+    <h2>Posts de Usuario</h2>
+
+    {% if user.is_authenticated %}
+    <a class="btn-dark" href="{% url 'postForm' %}">Nuevo Post</a>
+        
+    {% endif %}
+        
+
+    <ul>
+            
+            {% for post in lista_posts %}
+                <li>Usuario: {{post.usuario}} - fecha: {{post.date}} - Comentario: {{post.descripcion}}</li>
+            {% endfor %}
+                
+    </ul>
+
+{% endblock blockbody %}
