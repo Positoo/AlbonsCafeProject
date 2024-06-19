@@ -15,6 +15,18 @@
             
             {% for post in lista_posts %}
                 <li>Usuario: {{post.usuario}} - fecha: {{post.date}} - Comentario: {{post.descripcion}}</li>
+                
+                
+                {% if user.is_superuser %}
+                        
+                    <div>
+                        <form action="{% url 'eliminaPost' post.id %}" method="post"> {% csrf_token %}
+                            <button type="submit">Eliminar</button>
+                        </form>
+                    </div>
+                
+                {% endif %}
+
             {% endfor %}
                 
     </ul>

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+{% block blockbody %}
+
+<h2>Registro de Usuario</h2>
+
+<form action="{% url 'editarPerfil' %}" method="post">{% csrf_token %}
+
+    {{miFormulario.as_p}}
+
+    <button type="submit"> Actualizar </button>
+
+</form>
+
+{% endblock blockbody %}

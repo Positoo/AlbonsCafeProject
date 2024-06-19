@@ -15,6 +15,18 @@
             
             {% for novedad in lista_novedades %}
                 <li>Usuario: {{novedad.usuario}} - fecha: {{novedad.date}} - Comentario: {{novedad.descripcion}}</li>
+           
+                {% if user.is_superuser %}
+                        
+                    <div>
+                        <form action="{% url 'eliminaNovedad' novedad.id %}" method="post"> {% csrf_token %}
+                            <button type="submit">Eliminar</button>
+                        </form>
+                    </div>
+                
+                {% endif %}
+           
+           
             {% endfor %}
                 
     </ul>

@@ -34,10 +34,15 @@
                     </ul>
                     
                     {% if user.is_authenticated %}
-                        <p>Bienvenido {{user.username}} </p>
+                        <p>Bienvenido {{user.username}} - </p>
                         <form action="{% url 'logout' %}" method="post">{% csrf_token %}
                             <button type="submit">Salir</button>
                         </form>
+                        <div>
+                            
+                            <a class="nav-link text-uppercase" href="{% url 'editarPerfil' %}">Editar Perfil</a>
+                            
+                        </div>
                         
                     {% else %}
                         <a class="btn-dark" href="{% url 'login' %}">Ingresar</a>

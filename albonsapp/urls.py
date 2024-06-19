@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth.views import LogoutView
-from .views import index, login_view, registro, posts, postForm, novedadForm, novedades
+from .views import index, login_view, registro, posts, postForm, novedadForm, novedades, elimina_post, elimina_novedad, editar_perfil
 
 
 urlpatterns = [
@@ -12,4 +12,7 @@ urlpatterns = [
     path('post_formulario/', postForm, name="postForm"),
     path('novedad_formulario/', novedadForm, name="novedadForm"),
     path('novedades/', novedades, name="novedades"),
+    path('elimina_post/<int:id>', elimina_post, name='eliminaPost'),
+    path('eliminar_novedad/<int:id>', elimina_novedad, name='eliminaNovedad'),
+    path('editar_perfil/', editar_perfil, name='editarPerfil')
 ]
