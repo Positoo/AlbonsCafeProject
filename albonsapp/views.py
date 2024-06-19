@@ -2,8 +2,8 @@ from django.shortcuts import render
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from .models import Post
-from .forms import PostForm
+from .models import Post, Novedad
+from .forms import PostForm, NovedadForm
 import datetime
 #from albonsapp.forms import CustomUserCreationForm
 
@@ -100,4 +100,42 @@ def postForm(req):
         miFormulario = PostForm()
 
         return render(req, 'post_formulario.html', {"miFormulario": miFormulario})
+    
+
+#ver las novedades
+def novedades(req):
+
+    lista = Novedad.objects.all()
+
+    return render(req, 'novedades.html', {"lista_novedades":lista})
+
+    
+
+
+#formulario novedades
+def novedadForm(req):
+    
+    
+    usuarioLog = req.user.username
+
+    if req.method == 'POST':
+
+        miFormulario = NovedadForm(req.POST)
+
+        if miFormulario.is_valid():
+            
+            data = miFormulario.cleaned_data
+            fecha = datetime.datetime.now()
+
+            nueva_novedad = Novedad(usuario=usuarioLog, titulo=data['titulo'], descripcion=data['descripcion'], date=fecha)
+            nueva_novedad.save()
+            
+            return render(req, 'index.html', {"message": "Publicacion creada con éxito"})
+        else:
+            return render(req, 'index.html', {"message": "Datos no validos"})
+    else:
+
+        miFormulario = NovedadForm()
+
+        return render(req, 'novedad_formulario.html', {"miFormulario": miFormulario})
     

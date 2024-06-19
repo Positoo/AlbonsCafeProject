@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+
+{% block blockbody %}
+    
+<form action="{% url 'novedadForm' %}" method="post">{% csrf_token %}
+    
+    {{miFormulario.as_p}}
+
+    <button type="submit">Crear</button>
+</form>
+
+{% endblock blockbody %}

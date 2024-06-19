@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+
+{% block blockbody %}
+
+    <h2>Novedades</h2>
+
+    {% if user.is_superuser %}
+    <a class="btn-dark" href="{% url 'novedadForm' %}">Nueva Publicacion</a>
+        
+    {% endif %}
+        
+
+    <ul>
+            
+            {% for novedad in lista_novedades %}
+                <li>Usuario: {{novedad.usuario}} - fecha: {{novedad.date}} - Comentario: {{novedad.descripcion}}</li>
+            {% endfor %}
+                
+    </ul>
+
+{% endblock blockbody %}

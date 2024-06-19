@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth.views import LogoutView
-from .views import index, login_view, registro, posts, postForm
+from .views import index, login_view, registro, posts, postForm, novedadForm, novedades
 
 
 urlpatterns = [
@@ -10,4 +10,6 @@ urlpatterns = [
     path('registro/', registro, name="registro"),
     path('posts/', posts, name="posts"),
     path('post_formulario/', postForm, name="postForm"),
+    path('novedad_formulario/', novedadForm, name="novedadForm"),
+    path('novedades/', novedades, name="novedades"),
 ]
