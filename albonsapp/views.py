@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
 from .models import Post, Novedad
 from .forms import PostForm, NovedadForm, UserEditForm
@@ -29,10 +30,13 @@ def login_view(req):
 
             if user:
                 login(req, user)
-                return render(req, "index.html", {"message": f"hola {usuario}"})
+                return render(req, "index.html", {})
             else:
 
                 return render(req, "index.html", {"message": "datos erroneos"})
+            
+        else:
+            return render(req, "index.html", {"message": "datos erroneos"})
     
     else:
         miFormulario = AuthenticationForm
@@ -179,6 +183,7 @@ def editar_perfil(req):
 
             usuario.first_name = data["first_name"]
             usuario.last_name = data["last_name"]
+            usuario.set_password(data["password1"])
 
             usuario.save()
 
@@ -186,10 +191,33 @@ def editar_perfil(req):
         
         else:
 
-            return render(req, "index.html", {"message": "Datos invalidos"})
+            return render(req, "editar_perfil.html", {"miFormulario": miFormulario})
         
     else:
 
         miFormulario = UserEditForm(instance=req.user)
 
         return render(req, "editar_perfil.html", {"miFormulario": miFormulario})
+    
+
+#ver los Usuarios
+def usuarios(req):
+
+    lista = User.objects.all()
+
+    return render(req, 'usuarios.html', {"lista_usuarios":lista})
+
+
+
+
+#eliminar Usuario
+def elimina_usuario(req, id):
+    
+    if req.method == 'POST':
+
+        usuario = User.objects.get(id=id)
+        usuario.delete()
+
+        lista_usuarios = User.objects.all()
+    return render(req, 'usuarios.html', {"lista_usuarios": lista_usuarios})
+

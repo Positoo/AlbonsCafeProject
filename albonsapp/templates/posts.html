@@ -3,7 +3,7 @@
 
 {% block blockbody %}
 
-    <h2>Posts de Usuario</h2>
+    <h2>Posts de clientes</h2>
 
     {% if user.is_authenticated %}
     <a class="btn-dark" href="{% url 'postForm' %}">Nuevo Post</a>
@@ -14,9 +14,12 @@
     <ul>
             
             {% for post in lista_posts %}
-                <li>Usuario: {{post.usuario}} - fecha: {{post.date}} - Comentario: {{post.descripcion}}</li>
                 
-                
+                <li>
+                    <ul>{{post.usuario}}</ul>
+                    <ul>{{post.titulo}} - {{post.descripcion}}</ul>
+                    <ul>{{post.date}}</ul>
+                </li>
                 {% if user.is_superuser %}
                         
                     <div>
