@@ -221,3 +221,46 @@ def elimina_usuario(req, id):
         lista_usuarios = User.objects.all()
     return render(req, 'usuarios.html', {"lista_usuarios": lista_usuarios})
 
+
+
+#editar post
+def editar_post(req, id):
+
+    
+
+    if req.method == 'POST':
+
+        miFormulario = PostForm(req.POST)
+
+        if miFormulario.is_valid():
+
+            fecha = datetime.datetime.now()
+            data = miFormulario.cleaned_data
+            posteo = Post.objects.get(id=id)
+
+            posteo.titulo = data["titulo"]
+            posteo.descripcion = data["descripcion"]
+            posteo.date = fecha
+
+            posteo.save()
+
+            return render(req, "index.html", {"message": "Datos actualizados con éxito"})
+        
+        else:
+
+            return render(req, "index.html", {"message": "datos no validos"})
+        
+    else:
+
+        posteo = Post.objects.get(id=id)
+
+        miFormulario = PostForm(initial={
+            "usuario": posteo.usuario,
+            "titulo": posteo.titulo,
+            "descripcion": posteo.descripcion,
+            "imagen": posteo.imagen,
+            "date": posteo.date
+        })
+
+        return render(req, "editar_post.html", {"miFormulario": miFormulario, "id": id})
+    

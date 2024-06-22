@@ -20,6 +20,17 @@
                     <ul>{{post.titulo}} - {{post.descripcion}}</ul>
                     <ul>{{post.date}}</ul>
                 </li>
+                
+                {% if user.username == post.usuario %}
+                        
+                    <div>
+                        <form action="{% url 'editarPost' post.id %}" method="get"> {% csrf_token %}
+                            <button type="submit">editar</button>
+                        </form>
+                    </div>
+                
+                {% endif %}
+                
                 {% if user.is_superuser %}
                         
                     <div>
